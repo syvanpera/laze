@@ -10,6 +10,9 @@ distro_packages:
   - ghostty
   - wl-clipboard
   - starship
+  - ttf-jetbrains-mono-nerd
+  - atuin
+  - tig
   - interception-tools
   - interception-caps2esc
 
