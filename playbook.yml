@@ -16,6 +16,8 @@
   roles:
     - role: system
       become: yes
+    - role: ssh
+      become: no
     - role: packages
     - role: services
       become: yes

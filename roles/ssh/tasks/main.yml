@@ -1,0 +1,20 @@
+---
+- name: Ensure .ssh directory exists
+  file:
+    path: "{{ ansible_facts['user_dir'] }}/.ssh"
+    state: directory
+    mode: '0700'
+
+- name: Generate Ed25519 SSH key pair
+  user:
+    name: "{{ ansible_facts['user_id'] }}"
+    generate_ssh_key: yes
+    ssh_key_type: ed25519
+    ssh_key_file: .ssh/id_ed25519
+    ssh_key_comment: "{{ ansible_facts['user_id'] }}@{{ ansible_facts['nodename'] }}"
+  register: ssh_key_info
+
+- name: Show public key (so you can add it to GitHub/GitLab)
+  debug:
+    msg: "Your new public key: {{ lookup('file', ansible_facts['user_dir'] + '/.ssh/id_ed25519.pub') }}"
+  when: ssh_key_info.changed

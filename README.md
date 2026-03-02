@@ -28,10 +28,11 @@ Package lists are located in `roles/packages/vars/`:
 - `packages_RedHat.yml`: Fedora/RHEL specific.
 - `packages_Archlinux.yml`: Arch specific. Includes `aur_packages` for AUR support.
 
-### AUR Support (Arch Linux)
-The `packages` role includes automatic bootstrapping of the `paru` AUR helper on Arch Linux. If `aur_packages` is defined in `packages_Archlinux.yml`, it will automatically:
-1. Check for `paru` and install it if missing.
-2. Install the listed AUR packages as the non-root user.
+### SSH Key Initialization
+The setup includes an `ssh` role that:
+1. Checks for an existing Ed25519 SSH key in `~/.ssh/id_ed25519`.
+2. Generates a new key pair if one is missing.
+3. Prints the public key to the console so you can copy and paste it into GitHub, GitLab, or other services.
 
 ### Package Mapping (Translation)
 Since package names vary across distributions (e.g., `build-essential` vs. `base-devel`), you can use the `package_map` dictionary in each distro's YAML file. 
