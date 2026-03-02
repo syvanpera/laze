@@ -9,6 +9,7 @@ distro_packages:
   - fuzzel
   - alacritty
   - sddm
+  - kimageformats
 
 aur_packages:
   - quickshell-git
