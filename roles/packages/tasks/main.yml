@@ -1,21 +1,10 @@
 ---
-- name: Load common packages
-  include_vars:
-    file: packages_common.yml
-
-- name: Load distribution-specific packages
-  include_vars:
-    file: "{{ item }}"
-  with_first_found:
-    - "packages_{{ ansible_facts['os_family'] }}.yml"
-    - "packages_default.yml"
-  ignore_errors: yes
-
 - name: Install common packages
   package:
     name: "{{ (package_map | default({}))[item] | default(item) }}"
     state: present
   with_items: "{{ common_packages }}"
+  become: yes
 
 - name: Install distribution-specific packages
   package:
@@ -23,6 +12,7 @@
     state: present
   with_items: "{{ distro_packages }}"
   when: distro_packages is defined
+  become: yes
 
 - name: AUR Support (Arch Linux)
   when: ansible_facts['os_family'] == "Archlinux"
@@ -62,12 +52,3 @@
       with_items: "{{ aur_packages }}"
       when: aur_packages is defined and aur_packages | length > 0
       become: no
-
-- name: Enable and start system services
-  service:
-    name: "{{ item }}"
-    enabled: yes
-    state: started
-  with_items: "{{ services }}"
-  when: services is defined and services | length > 0
-  become: yes

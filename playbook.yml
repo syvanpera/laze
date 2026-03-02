@@ -1,11 +1,15 @@
 ---
-- name: "Laze - Lazy developers automated environment"
+- name: "Development Machine Setup"
   hosts: localhost
+  vars_files:
+    - vars/packages_common.yml
+    - [ "vars/packages_{{ ansible_facts['os_family'] }}.yml", "vars/packages_default.yml" ]
 
   roles:
     - role: system
       become: yes
     - role: packages
+    - role: services
       become: yes
     - role: dotfiles
       become: no
