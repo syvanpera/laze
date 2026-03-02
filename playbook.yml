@@ -1,9 +1,17 @@
 ---
 - name: "Development Machine Setup"
   hosts: localhost
-  vars_files:
-    - vars/packages_common.yml
-    - [ "vars/packages_{{ ansible_facts['os_family'] }}.yml", "vars/packages_default.yml" ]
+  gather_facts: yes
+
+  pre_tasks:
+    - name: Load common variables
+      include_vars: vars/packages_common.yml
+
+    - name: Load distribution-specific variables
+      include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/packages_{{ ansible_facts['os_family'] }}.yml"
+        - "vars/packages_default.yml"
 
   roles:
     - role: system
