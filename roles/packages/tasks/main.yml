@@ -62,4 +62,3 @@
       with_items: "{{ aur_packages }}"
       when: aur_packages is defined and aur_packages | length > 0
       become: no
-  when: ansible_os_family == "Archlinux"
