@@ -9,23 +9,15 @@ echo "Starting development machine setup..."
 
 # Detect Linux Distribution
 if [ -f /etc/os-release ]; then
-    # freedesktop.org and systemd
     . /etc/os-release
-    echo "Detected OS: $NAME ('$ID' with '$ID_LIKE' base)"
-fi
-
-OS=""
-if [[ " ${DISTROS[@]} " =~ " ${ID} " ]]; then
-  OS=$ID
-elif [[ " ${DISTROS[@]} " =~ " ${ID_LIKE} " ]]; then
-  OS=$ID_LIKE
+    OS=$ID
+elif [ -f /etc/debian_version ]; then
+    OS=debian
 else
-  echo "Unsupported distribution"
-  echo "Currently only following distros are supported: ${DISTROS[@]}"
-  exit 1
+    OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 fi
 
-echo "Detected $OS"
+echo "Detected OS: $OS"
 
 # Function to install packages based on distribution
 install_prerequisites() {
@@ -37,7 +29,7 @@ install_prerequisites() {
         fedora|rhel|centos|rocky|almalinux)
             sudo dnf install -y git ansible
             ;;
-        arch|manjaro)
+        arch|cachyos|manjaro)
             sudo pacman -Syu --noconfirm git ansible
             ;;
         *)
