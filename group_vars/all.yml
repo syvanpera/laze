@@ -4,6 +4,6 @@ dotfiles_repo_url: "https://github.com/syvanpera/dotfiles.git"
 # Branch, tag, or commit hash to check out (default is main)
 dotfiles_repo_version: "main"
 # Local path where dotfiles should be cloned
-dotfiles_dest: "{{ ansible_env.HOME }}/.dotfiles"
+dotfiles_dest: "{{ ansible_facts['env']['HOME'] }}/.dotfiles"
 # Command to run for dotfiles installation (if applicable)
 dotfiles_install_command: "./install.sh"

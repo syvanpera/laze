@@ -8,6 +8,6 @@ common_packages:
   - build-essential
   - python3-pip
   - tmux
-  - zsh
+  - fish
   - bat
   - stow
