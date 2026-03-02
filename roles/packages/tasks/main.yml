@@ -7,7 +7,7 @@
   include_vars:
     file: "{{ item }}"
   with_first_found:
-    - "packages_{{ ansible_os_family }}.yml"
+    - "packages_{{ ansible_facts['os_family'] }}.yml"
     - "packages_default.yml"
   ignore_errors: yes
 
