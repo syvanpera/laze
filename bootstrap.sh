@@ -14,11 +14,11 @@ if [ -f /etc/os-release ]; then
     echo "Detected OS: $NAME ('$ID' with '$ID_LIKE' base)"
 fi
 
-DISTRO=""
+OS=""
 if [[ " ${DISTROS[@]} " =~ " ${ID} " ]]; then
-  DISTRO=$ID
+  OS=$ID
 elif [[ " ${DISTROS[@]} " =~ " ${ID_LIKE} " ]]; then
-  DISTRO=$ID_LIKE
+  OS=$ID_LIKE
 else
   echo "Unsupported distribution"
   echo "Currently only following distros are supported: ${DISTROS[@]}"
