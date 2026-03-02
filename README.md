@@ -26,7 +26,12 @@ Package lists are located in `roles/packages/vars/`:
 - `packages_common.yml`: Packages for all distributions.
 - `packages_Debian.yml`: Debian/Ubuntu/Mint specific.
 - `packages_RedHat.yml`: Fedora/RHEL specific.
-- `packages_Archlinux.yml`: Arch specific.
+- `packages_Archlinux.yml`: Arch specific. Includes `aur_packages` for AUR support.
+
+### AUR Support (Arch Linux)
+The `packages` role includes automatic bootstrapping of the `paru` AUR helper on Arch Linux. If `aur_packages` is defined in `packages_Archlinux.yml`, it will automatically:
+1. Check for `paru` and install it if missing.
+2. Install the listed AUR packages as the non-root user.
 
 ### Package Mapping (Translation)
 Since package names vary across distributions (e.g., `build-essential` vs. `base-devel`), you can use the `package_map` dictionary in each distro's YAML file. 

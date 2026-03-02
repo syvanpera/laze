@@ -23,3 +23,32 @@
     state: present
   with_items: "{{ distro_packages }}"
   when: distro_packages is defined
+
+- name: AUR Support (Arch Linux)
+  block:
+    - name: Check if paru is installed
+      command: which paru
+      register: paru_check
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Install paru if not present
+      when: paru_check.rc != 0
+      block:
+        - name: Clone paru
+          git:
+            repo: https://aur.archlinux.org/paru-bin.git
+            dest: /tmp/paru-bin
+            update: yes
+
+        - name: Build and install paru
+          command: makepkg -si --noconfirm
+          args:
+            chdir: /tmp/paru-bin
+
+    - name: Install AUR packages
+      command: "paru -S --noconfirm {{ item }}"
+      with_items: "{{ aur_packages }}"
+      when: aur_packages is defined and aur_packages | length > 0
+  when: ansible_os_family == "Archlinux"
+  become: no
