@@ -25,12 +25,22 @@
   when: distro_packages is defined
 
 - name: AUR Support (Arch Linux)
+  when: ansible_os_family == "Archlinux"
   block:
+    - name: Allow user to run pacman without password (for AUR)
+      copy:
+        content: "{{ ansible_user_id }} ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+        dest: "/etc/sudoers.d/10-{{ ansible_user_id }}-pacman"
+        mode: '0440'
+        validate: '/usr/sbin/visudo -cf %s'
+      become: yes
+
     - name: Check if paru is installed
       command: which paru
       register: paru_check
       ignore_errors: yes
       changed_when: false
+      become: no
 
     - name: Install paru if not present
       when: paru_check.rc != 0
@@ -45,10 +55,11 @@
           command: makepkg -si --noconfirm
           args:
             chdir: /tmp/paru-bin
+      become: no
 
     - name: Install AUR packages
       command: "paru -S --noconfirm {{ item }}"
       with_items: "{{ aur_packages }}"
       when: aur_packages is defined and aur_packages | length > 0
+      become: no
   when: ansible_os_family == "Archlinux"
-  become: no
