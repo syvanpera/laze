@@ -12,3 +12,6 @@ distro_packages:
 
 aur_packages:
   - dms-shell-git
+
+services:
+  - sddm
