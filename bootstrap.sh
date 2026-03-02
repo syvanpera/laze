@@ -3,19 +3,29 @@
 # Exit on error
 set -e
 
+DISTROS=(arch)
+
 echo "Starting development machine setup..."
 
 # Detect Linux Distribution
 if [ -f /etc/os-release ]; then
+    # freedesktop.org and systemd
     . /etc/os-release
-    OS=$ID
-elif [ -f /etc/debian_version ]; then
-    OS=debian
-else
-    OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+    echo "Detected OS: $NAME ('$ID' with '$ID_LIKE' base)"
 fi
 
-echo "Detected OS: $OS"
+DISTRO=""
+if [[ " ${DISTROS[@]} " =~ " ${ID} " ]]; then
+  DISTRO=$ID
+elif [[ " ${DISTROS[@]} " =~ " ${ID_LIKE} " ]]; then
+  DISTRO=$ID_LIKE
+else
+  echo "Unsupported distribution"
+  echo "Currently only following distros are supported: ${DISTROS[@]}"
+  exit 1
+fi
+
+echo "Detected $OS"
 
 # Function to install packages based on distribution
 install_prerequisites() {
