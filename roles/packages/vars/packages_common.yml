@@ -1,0 +1,13 @@
+---
+common_packages:
+  - curl
+  - wget
+  - vim
+  - git
+  - htop
+  - build-essential
+  - python3-pip
+  - tmux
+  - zsh
+  - bat
+  - stow

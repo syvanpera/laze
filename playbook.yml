@@ -1,0 +1,11 @@
+---
+- name: "Laze - Lazy developers automated environment"
+  hosts: localhost
+
+  roles:
+    - role: system
+      become: yes
+    - role: packages
+      become: yes
+    - role: dotfiles
+      become: no

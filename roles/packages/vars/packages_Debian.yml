@@ -1,0 +1,10 @@
+---
+package_map:
+  build-essential: "build-essential"
+  python3-pip: "python3-pip"
+  bat: "batcat"
+
+distro_packages:
+  - apt-transport-https
+  - ca-certificates
+  - software-properties-common

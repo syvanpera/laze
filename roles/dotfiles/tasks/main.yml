@@ -1,0 +1,20 @@
+---
+- name: Ensure dotfiles destination directory exists
+  file:
+    path: "{{ dotfiles_dest }}"
+    state: directory
+  when: dotfiles_repo_url is defined
+
+- name: Clone dotfiles repository
+  git:
+    repo: "{{ dotfiles_repo_url }}"
+    dest: "{{ dotfiles_dest }}"
+    version: "{{ dotfiles_repo_version }}"
+    update: yes
+  when: dotfiles_repo_url is defined
+
+- name: Run dotfiles install script
+  shell: "{{ dotfiles_install_command }}"
+  args:
+    chdir: "{{ dotfiles_dest }}"
+  when: dotfiles_repo_url is defined and dotfiles_install_command is defined

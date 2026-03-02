@@ -1,0 +1,25 @@
+---
+- name: Load common packages
+  include_vars:
+    file: packages_common.yml
+
+- name: Load distribution-specific packages
+  include_vars:
+    file: "{{ item }}"
+  with_first_found:
+    - "packages_{{ ansible_os_family }}.yml"
+    - "packages_default.yml"
+  ignore_errors: yes
+
+- name: Install common packages
+  package:
+    name: "{{ (package_map | default({}))[item] | default(item) }}"
+    state: present
+  with_items: "{{ common_packages }}"
+
+- name: Install distribution-specific packages
+  package:
+    name: "{{ (package_map | default({}))[item] | default(item) }}"
+    state: present
+  with_items: "{{ distro_packages }}"
+  when: distro_packages is defined

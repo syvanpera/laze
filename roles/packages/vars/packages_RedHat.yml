@@ -1,0 +1,7 @@
+---
+package_map:
+  build-essential: "@development-tools"
+  python3-pip: "python3-pip"
+
+distro_packages:
+  - dnf-plugins-core

@@ -1,0 +1,18 @@
+---
+- name: Update package cache (Debian family)
+  apt:
+    update_cache: yes
+    upgrade: yes
+  when: ansible_os_family == "Debian"
+
+- name: Update package cache (RedHat family)
+  dnf:
+    name: "*"
+    state: latest
+  when: ansible_os_family == "RedHat"
+
+- name: Update package cache (Archlinux family)
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  when: ansible_os_family == "Archlinux"

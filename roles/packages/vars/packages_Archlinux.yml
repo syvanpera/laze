@@ -1,0 +1,6 @@
+---
+package_map:
+  build-essential: "base-devel"
+  python3-pip: "python-pip"
+
+distro_packages: []
