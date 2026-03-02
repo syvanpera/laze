@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# Exit on error
-set -e
-
-DISTROS=(arch)
+set -euo pipefail
 
 echo "Starting development machine setup..."
 
@@ -45,8 +42,29 @@ if ! command -v git &> /dev/null || ! command -v ansible &> /dev/null; then
     install_prerequisites
 fi
 
-# Run Ansible Playbook
+# Resolve project directory. If script is piped via curl, clone project files.
+SCRIPT_PATH="${BASH_SOURCE[0]:-$0}"
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" 2>/dev/null && pwd || pwd)"
+PROJECT_DIR="$SCRIPT_DIR"
+
+if [ ! -f "$PROJECT_DIR/playbook.yml" ] || [ ! -f "$PROJECT_DIR/inventory" ]; then
+    PROJECT_DIR="$HOME/laze"
+    if [ ! -d "$PROJECT_DIR/.git" ]; then
+        echo "Project files not found locally. Cloning repository to $PROJECT_DIR..."
+        git clone --depth 1 --branch main https://github.com/syvanpera/laze.git "$PROJECT_DIR"
+    else
+        echo "Using existing repository at $PROJECT_DIR."
+    fi
+fi
+
+if [ ! -f "$PROJECT_DIR/playbook.yml" ] || [ ! -f "$PROJECT_DIR/inventory" ]; then
+    echo "Repository at $PROJECT_DIR is missing required files."
+    exit 1
+fi
+
+# Run Ansible playbook
 echo "Laze: Setup running. Go take a nap."
+cd "$PROJECT_DIR"
 ansible-playbook -i inventory playbook.yml --ask-become-pass
 
 echo "✅ Laze: Setup complete!"
