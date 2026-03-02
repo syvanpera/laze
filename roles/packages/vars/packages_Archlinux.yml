@@ -8,6 +8,7 @@ distro_packages:
   - xdg-desktop-portal-gnome
   - fuzzel
   - alacritty
+  - sddm
 
 aur_packages:
-  - dms-shell-niri
+  - dms-shell-git
