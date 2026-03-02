@@ -1,9 +1,14 @@
 ---
+- name: Check if dotfiles repository exists
+  stat:
+    path: "{{ dotfiles_dest }}/.git"
+  register: dotfiles_repo_stat
+
 - name: Ensure dotfiles destination directory exists
   file:
     path: "{{ dotfiles_dest }}"
     state: directory
-  when: dotfiles_repo_url is defined
+  when: dotfiles_repo_url is defined and not dotfiles_repo_stat.stat.exists
 
 - name: Clone dotfiles repository
   git:
@@ -11,7 +16,7 @@
     dest: "{{ dotfiles_dest }}"
     version: "{{ dotfiles_repo_version }}"
     update: yes
-  when: dotfiles_repo_url is defined
+  when: dotfiles_repo_url is defined and not dotfiles_repo_stat.stat.exists
 
 - name: Run dotfiles install script
   shell: "{{ dotfiles_install_command }}"
