@@ -52,3 +52,6 @@ For details on how the dotfiles are managed (with GNU Stow) and how to add new c
 The dotfiles repository can be installed independently of this project on any machine.
 Simply clone your dotfiles repository and run `./install.sh`.
 This requires GNU Stow to be installed.
+
+## TODO
+- DMS greeter requires you to run `dms greeter enable`

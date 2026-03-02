@@ -8,12 +8,12 @@ distro_packages:
   - xdg-desktop-portal-gnome
   - fuzzel
   - alacritty
-  - sddm
   - kimageformats
 
 aur_packages:
   - quickshell-git
   - dms-shell-git
+  - greetd-dms-greeter-git
 
 services:
-  - sddm
+  - greetd
