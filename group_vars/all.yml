@@ -7,3 +7,6 @@ dotfiles_repo_version: "main"
 dotfiles_dest: "{{ ansible_facts['env']['HOME'] }}/.dotfiles"
 # Command to run for dotfiles installation (if applicable)
 dotfiles_install_command: "./install.sh"
+
+# Email used for SSH key comment
+ssh_key_email: "tuomo.syvanpera@gmail.com"
