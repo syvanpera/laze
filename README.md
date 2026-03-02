@@ -16,7 +16,7 @@ On a fresh Linux installation, you can run the bootstrap script directly (assumi
 ```bash
 chmod +x bootstrap.sh
 ./bootstrap.sh
-curl -sL https://raw.githubusercontent.com/syvanpera/laze/main/bootstrap.sh | bash
+curl -sL https://raw.githubusercontent.com/syvanpera/laze/refs/heads/main/bootstrap.sh | bash
 ```
 
 ## Configuration
