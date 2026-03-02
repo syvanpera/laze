@@ -17,11 +17,3 @@
     upgrade: yes
   when: ansible_facts['os_family'] == "Archlinux"
 
-- name: Enable and start system services
-  service:
-    name: "{{ item }}"
-    enabled: yes
-    state: started
-  with_items: "{{ services }}"
-  when: services is defined and services | length > 0
-

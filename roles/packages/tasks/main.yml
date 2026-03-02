@@ -62,3 +62,12 @@
       with_items: "{{ aur_packages }}"
       when: aur_packages is defined and aur_packages | length > 0
       become: no
+
+- name: Enable and start system services
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items: "{{ services }}"
+  when: services is defined and services | length > 0
+  become: yes
