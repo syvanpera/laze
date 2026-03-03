@@ -13,6 +13,20 @@ distro_packages:
   - ttf-jetbrains-mono-nerd
   - atuin
   - tig
+  - direnv
+  - zoxide
+  - procs
+  - ripgrep
+  - eza
+  - neovim
+  - fastfetch
+  - lazygit
+  - brightnessctl
+  - go
+  - adw-gtk-theme
+  - rustup
+  - khal
+  - cava
   - interception-tools
   - interception-caps2esc
 
@@ -21,6 +35,8 @@ aur_packages:
   - dms-shell-git
   - greetd-dms-greeter-git
   - zen-browser-bin
+  - matugen-git
+  - dsearch-git
 
 services:
   - greetd
