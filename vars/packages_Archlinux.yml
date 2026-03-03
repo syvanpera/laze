@@ -9,11 +9,16 @@ distro_packages:
   - kimageformats
   - ghostty
   - wl-clipboard
+  - starship
+  - interception-tools
+  - interception-caps2esc
 
 aur_packages:
   - quickshell-git
   - dms-shell-git
   - greetd-dms-greeter-git
+  - zen-browser-bin
 
 services:
   - greetd
+  - udevmon

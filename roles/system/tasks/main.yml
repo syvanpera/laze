@@ -17,3 +17,22 @@
     upgrade: yes
   when: ansible_facts['os_family'] == "Archlinux"
 
+- name: Configure interception-tools caps2esc (Arch Linux)
+  block:
+    - name: Ensure interception directory exists
+      file:
+        path: /etc/interception
+        state: directory
+        mode: '0755'
+
+    - name: Create udevmon configuration
+      copy:
+        content: |
+          - JOB: "intercept -g $ALL | caps2esc | uinput -d $ALL"
+            DEVICE:
+              EVENTS:
+                EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+        dest: /etc/interception/udevmon.yaml
+        mode: '0644'
+  when: ansible_facts['os_family'] == "Archlinux"
+
