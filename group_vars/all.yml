@@ -10,3 +10,6 @@ dotfiles_install_command: "./install.sh"
 
 # Email used for SSH key comment
 ssh_key_email: "tuomo.syvanpera@gmail.com"
+
+# Directory for global npm packages
+npm_config_prefix: "{{ ansible_facts['user_dir'] }}/.npm-global"

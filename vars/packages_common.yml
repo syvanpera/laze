@@ -8,6 +8,13 @@ common_packages:
   - build-essential
   - python3-pip
   - tmux
-  - fish
+  - zsh
   - bat
   - stow
+  - nodejs
+  - npm
+
+  npm_packages:
+  - neovim
+  - tree-sitter-cli
+
